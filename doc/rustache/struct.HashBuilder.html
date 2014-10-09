@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>rustache</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.HashBuilder.html'>HashBuilder</a><a class='struct ' href='struct.Read.html'>Read</a><a class='struct ' href='struct.Rustache.html'>Rustache</a><a class='struct ' href='struct.VecBuilder.html'>VecBuilder</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.Data.html'>Data</a></div>
+        <p class='location'><a href='index.html'>rustache</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.HashBuilder.html'>HashBuilder</a><a class='struct ' href='struct.VecBuilder.html'>VecBuilder</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.render_file_from_hb.html'>render_file_from_hb</a><a class='fn ' href='fn.render_file_from_json_enum.html'>render_file_from_json_enum</a><a class='fn ' href='fn.render_file_from_json_file.html'>render_file_from_json_file</a><a class='fn ' href='fn.render_file_from_json_string.html'>render_file_from_json_string</a><a class='fn ' href='fn.render_text_from_hb.html'>render_text_from_hb</a><a class='fn ' href='fn.render_text_from_json_enum.html'>render_text_from_json_enum</a><a class='fn ' href='fn.render_text_from_json_file.html'>render_text_from_json_file</a><a class='fn ' href='fn.render_text_from_json_string.html'>render_text_from_json_string</a></div>
     </section>
 
     <nav class="sub">
@@ -41,32 +41,44 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'><div class='in-band'>Struct <a href='index.html'>rustache</a>::<wbr><a class='struct' href=''>HashBuilder</a><wbr></div><div class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rustache</a>::<wbr><a class='struct' href=''>HashBuilder</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-2215' href='../src/rustache/src/build.rs.html#7-10'>[src]</a></div></h1>
+        </span><a id='src-9223' href='../src/rustache/src/build.rs.html#8-13'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct HashBuilder&lt;'a&gt; {
-    pub data: <a class='struct' href='http://doc.rust-lang.org/master/std/collections/hashmap/map/struct.HashMap.html' title='std::collections::hashmap::map::HashMap'>HashMap</a>&lt;<a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../rustache/enum.Data.html' title='rustache::Data'>Data</a>&lt;'a&gt;&gt;,
-    pub partials_path: &amp;'a <a href='http://doc.rust-lang.org/master/std/primitive.str.html'>str</a>,
+    // some fields omitted
 }</pre><div class='docblock'><p><code>HashBuilder</code> is a helper type that constructs <code>Data</code> types in a HashMap</p>
-</div><h2 class='fields'>Fields</h2>
-<table><tr><td id='structfield.data'><a class='stability Unmarked' title='No stability level'></a><code>data</code></td><td></td></tr><tr><td id='structfield.partials_path'><a class='stability Unmarked' title='No stability level'></a><code>partials_path</code></td><td></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h3><div class='impl-methods'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h3><div class='impl-methods'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Create a new <code>HashBuilder</code> instance</p>
 </div><h4 id='method.insert_string' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_string' class='fnname'>insert_string</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>, V: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, value: V) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>String</code> to the <code>HashBuilder</code></p>
 <pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>HashBuilder</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
-    .<span class='ident'>insert_string</span>(<span class='string'>&quot;game&quot;</span>, <span class='string'>&quot;Hearthstone: Heroes of Warcraft&quot;</span>)
-    .<span class='ident'>build</span>();
+    .<span class='ident'>insert_string</span>(<span class='string'>&quot;game&quot;</span>, <span class='string'>&quot;Hearthstone: Heroes of Warcraft&quot;</span>);
 </pre>
 </div><h4 id='method.insert_bool' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_bool' class='fnname'>insert_bool</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, value: <a href='http://doc.rust-lang.org/master/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>Boolean</code> to the <code>HashBuilder</code></p>
 <pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>HashBuilder</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
-    .<span class='ident'>insert_bool</span>(<span class='string'>&quot;playing&quot;</span>, <span class='boolval'>true</span>)
-    .<span class='ident'>build</span>();
+    .<span class='ident'>insert_bool</span>(<span class='string'>&quot;playing&quot;</span>, <span class='boolval'>true</span>);
+</pre>
+</div><h4 id='method.insert_int' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_int' class='fnname'>insert_int</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, value: <a href='http://doc.rust-lang.org/master/std/primitive.int.html'>int</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add an <code>Integer</code> to the <code>HashBuilder</code></p>
+<pre class='rust '>
+<span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>HashBuilder</span>;
+<span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
+    .<span class='ident'>insert_int</span>(<span class='string'>&quot;age&quot;</span>, <span class='number'>10i</span>)
+    .<span class='ident'>insert_int</span>(<span class='string'>&quot;drinking age&quot;</span>, <span class='op'>-</span><span class='number'>21i</span>);
+</pre>
+</div><h4 id='method.insert_float' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_float' class='fnname'>insert_float</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, value: <a href='http://doc.rust-lang.org/master/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add a <code>Float</code> to the <code>HashBuilder</code></p>
+<pre class='rust '>
+<span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>HashBuilder</span>;
+<span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
+    .<span class='ident'>insert_float</span>(<span class='string'>&quot;pi&quot;</span>, <span class='number'>3.141596f64</span>)
+    .<span class='ident'>insert_float</span>(<span class='string'>&quot;phi&quot;</span>, <span class='number'>1.61803398875f64</span>);
 </pre>
 </div><h4 id='method.insert_vector' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_vector' class='fnname'>insert_vector</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, f: |<a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;| -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>Vector</code> to the <code>HashBuilder</code></p>
@@ -77,8 +89,7 @@
         <span class='ident'>builder</span>
             .<span class='ident'>push_string</span>(<span class='string'>&quot;Mage&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>push_string</span>(<span class='string'>&quot;Druid&quot;</span>.<span class='ident'>to_string</span>())
-    })
-    .<span class='ident'>build</span>();   
+    });  
 </pre>
 </div><h4 id='method.insert_hash' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_hash' class='fnname'>insert_hash</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, f: |<a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;| -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>Hash</code> to the <code>HashBuilder</code></p>
@@ -94,26 +105,21 @@
         <span class='ident'>builder</span>
             .<span class='ident'>insert_string</span>(<span class='string'>&quot;first_name&quot;</span>, <span class='string'>&quot;Jaina&quot;</span>)
             .<span class='ident'>insert_string</span>(<span class='string'>&quot;last_name&quot;</span>, <span class='string'>&quot;Proudmoore&quot;</span>)    
-    })
-    .<span class='ident'>build</span>();
+    });
 </pre>
-</div><h4 id='method.insert_func' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_func' class='fnname'>insert_func</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, f: |<a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>| -&gt; <a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Add a <code>Function</code> to the <code>HashBuilder</code></p>
+</div><h4 id='method.insert_lambda' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.insert_lambda' class='fnname'>insert_lambda</a>&lt;K: <a class='trait' href='http://doc.rust-lang.org/master/collections/str/trait.StrAllocating.html' title='collections::str::StrAllocating'>StrAllocating</a>&gt;(self, key: K, f: |<a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>| -&gt; <a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add a <code>Lambda</code> that accepts a String and returns a String to the <code>HashBuilder</code></p>
 <pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>HashBuilder</span>;
-<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='number'>0</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
-    .<span class='ident'>insert_func</span>(<span class='string'>&quot;double&quot;</span>, <span class='op'>|</span>_<span class='op'>|</span> {
-        <span class='ident'>num</span> <span class='op'>*=</span> <span class='number'>2u</span>;
-        <span class='ident'>num</span>.<span class='ident'>to_string</span>()                
-    })
-    .<span class='ident'>build</span>();
+    .<span class='ident'>insert_lambda</span>(<span class='string'>&quot;lambda&quot;</span>, <span class='op'>|</span>_<span class='op'>|</span> {
+        <span class='string'>&quot;world&quot;</span>.<span class='ident'>to_string</span>()               
+    });
 </pre>
 </div><h4 id='method.set_partials_path' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.set_partials_path' class='fnname'>set_partials_path</a>(self, path: &amp;'a <a href='http://doc.rust-lang.org/master/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Set a path to partials data</p>
-</div><h4 id='method.build' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build' class='fnname'>build</a>(self) -&gt; <a class='enum' href='../rustache/enum.Data.html' title='rustache::Data'>Data</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Return the built <code>Data</code></p>
-</div></div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;'a&gt; <a class='trait' href='http://doc.rust-lang.org/master/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;</code></h3><div class='impl-methods'><h4 id='method.fmt' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/master/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/master/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

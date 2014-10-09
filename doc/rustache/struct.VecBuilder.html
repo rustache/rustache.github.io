@@ -26,7 +26,7 @@
 
     <section class="sidebar">
         
-        <p class='location'><a href='index.html'>rustache</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.HashBuilder.html'>HashBuilder</a><a class='struct ' href='struct.Read.html'>Read</a><a class='struct ' href='struct.Rustache.html'>Rustache</a><a class='struct current' href='struct.VecBuilder.html'>VecBuilder</a></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.Data.html'>Data</a></div>
+        <p class='location'><a href='index.html'>rustache</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.HashBuilder.html'>HashBuilder</a><a class='struct current' href='struct.VecBuilder.html'>VecBuilder</a></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.render_file_from_hb.html'>render_file_from_hb</a><a class='fn ' href='fn.render_file_from_json_enum.html'>render_file_from_json_enum</a><a class='fn ' href='fn.render_file_from_json_file.html'>render_file_from_json_file</a><a class='fn ' href='fn.render_file_from_json_string.html'>render_file_from_json_string</a><a class='fn ' href='fn.render_text_from_hb.html'>render_text_from_hb</a><a class='fn ' href='fn.render_text_from_json_enum.html'>render_text_from_json_enum</a><a class='fn ' href='fn.render_text_from_json_file.html'>render_text_from_json_file</a><a class='fn ' href='fn.render_text_from_json_string.html'>render_text_from_json_string</a></div>
     </section>
 
     <nav class="sub">
@@ -41,10 +41,10 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'><div class='in-band'>Struct <a href='index.html'>rustache</a>::<wbr><a class='struct' href=''>VecBuilder</a><wbr></div><div class='out-of-band'><span id='render-detail'>
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rustache</a>::<wbr><a class='struct' href=''>VecBuilder</a><wbr></span><span class='out-of-band'><span id='render-detail'>
             <a id="collapse-all" href="#">[-]
             </a>&nbsp;<a id="expand-all" href="#">[+]</a>
-        </span><a id='src-2503' href='../src/rustache/src/build.rs.html#130-132'>[src]</a></div></h1>
+        </span><a id='src-9666' href='../src/rustache/src/build.rs.html#146-148'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct VecBuilder&lt;'a&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p><code>VecBuilder</code> is a helper type that constructs <code>Data</code> types in a Vector</p>
@@ -56,17 +56,31 @@
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>VecBuilder</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
     .<span class='ident'>push_string</span>(<span class='string'>&quot;Mage&quot;</span>)
-    .<span class='ident'>push_string</span>(<span class='string'>&quot;Druid&quot;</span>)
-    .<span class='ident'>build</span>();
+    .<span class='ident'>push_string</span>(<span class='string'>&quot;Druid&quot;</span>);
 </pre>
 </div><h4 id='method.push_bool' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_bool' class='fnname'>push_bool</a>(self, value: <a href='http://doc.rust-lang.org/master/std/primitive.bool.html'>bool</a>) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Add a <code>Boolean</code> to the <code>VecBuilder</code></p>
+<div class='docblock'><p>Add a <code>Bool</code> to the <code>VecBuilder</code></p>
 <pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>VecBuilder</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
     .<span class='ident'>push_bool</span>(<span class='boolval'>true</span>)
-    .<span class='ident'>push_bool</span>(<span class='boolval'>false</span>)
-    .<span class='ident'>build</span>();
+    .<span class='ident'>push_bool</span>(<span class='boolval'>false</span>);
+</pre>
+</div><h4 id='method.push_int' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_int' class='fnname'>push_int</a>(self, value: <a href='http://doc.rust-lang.org/master/std/primitive.int.html'>int</a>) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add an <code>Integer</code> to the <code>VecBuilder</code></p>
+<pre class='rust '>
+<span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>VecBuilder</span>;
+<span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
+    .<span class='ident'>push_int</span>(<span class='number'>10i</span>)
+    .<span class='ident'>push_int</span>(<span class='op'>-</span><span class='number'>21i</span>);
+</pre>
+</div><h4 id='method.push_float' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_float' class='fnname'>push_float</a>(self, value: <a href='http://doc.rust-lang.org/master/std/primitive.f64.html'>f64</a>) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add a <code>Float</code> to the <code>VecBuilder</code></p>
+<pre class='rust '>
+<span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>VecBuilder</span>;
+<span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
+    .<span class='ident'>push_float</span>(<span class='number'>10.356356f64</span>)
+    .<span class='ident'>push_float</span>(<span class='op'>-</span><span class='number'>21.34956230456f64</span>);
 </pre>
 </div><h4 id='method.push_vector' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_vector' class='fnname'>push_vector</a>(self, f: |<a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;| -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>Vector</code> to the <code>VecBuilder</code></p>
@@ -77,8 +91,7 @@
         <span class='ident'>builder</span>
             .<span class='ident'>push_string</span>(<span class='string'>&quot;Anduin Wrynn&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>push_string</span>(<span class='string'>&quot;Jaina Proudmoore&quot;</span>.<span class='ident'>to_string</span>())
-    })
-    .<span class='ident'>build</span>();
+    });
 </pre>
 </div><h4 id='method.push_hash' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_hash' class='fnname'>push_hash</a>(self, f: |<a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;| -&gt; <a class='struct' href='../rustache/struct.HashBuilder.html' title='rustache::HashBuilder'>HashBuilder</a>&lt;'a&gt;) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Add a <code>Hash</code> to the <code>VecBuilder</code></p>
@@ -94,23 +107,17 @@
         <span class='ident'>builder</span>
             .<span class='ident'>insert_string</span>(<span class='string'>&quot;first_name&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Malfurion&quot;</span>.<span class='ident'>to_string</span>())
             .<span class='ident'>insert_string</span>(<span class='string'>&quot;last_name&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;Stormrage&quot;</span>.<span class='ident'>to_string</span>())    
-    })
-    .<span class='ident'>build</span>();
+    });
 </pre>
-</div><h4 id='method.push_func' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_func' class='fnname'>push_func</a>(self, f: |<a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>| -&gt; <a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Add a <code>Function</code> to the <code>VecBuilder</code></p>
+</div><h4 id='method.push_lambda' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push_lambda' class='fnname'>push_lambda</a>(self, f: |<a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>| -&gt; <a class='struct' href='http://doc.rust-lang.org/master/collections/string/struct.String.html' title='collections::string::String'>String</a>) -&gt; <a class='struct' href='../rustache/struct.VecBuilder.html' title='rustache::VecBuilder'>VecBuilder</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Add a <code>Lambda</code> to the <code>VecBuilder</code></p>
 <pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>rustache</span>::<span class='ident'>VecBuilder</span>;
-<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='number'>0</span>;
 <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
-    .<span class='ident'>push_func</span>(<span class='op'>|</span><span class='ident'>double</span><span class='op'>|</span> {
-        <span class='ident'>num</span> <span class='op'>*=</span> <span class='number'>2u</span>;
-        <span class='ident'>num</span>.<span class='ident'>to_string</span>()
-    })
-    .<span class='ident'>build</span>();
+    .<span class='ident'>push_lambda</span>(<span class='op'>|</span><span class='ident'>lambda</span><span class='op'>|</span> {
+        <span class='string'>&quot;world&quot;</span>.<span class='ident'>to_string</span>()
+    });
 </pre>
-</div><h4 id='method.build' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.build' class='fnname'>build</a>(self) -&gt; <a class='enum' href='../rustache/enum.Data.html' title='rustache::Data'>Data</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Return the built <code>Data</code></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
 

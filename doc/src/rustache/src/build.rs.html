@@ -396,21 +396,57 @@
 <span id='354'>354</span>
 <span id='355'>355</span>
 <span id='356'>356</span>
+<span id='357'>357</span>
+<span id='358'>358</span>
+<span id='359'>359</span>
+<span id='360'>360</span>
+<span id='361'>361</span>
+<span id='362'>362</span>
+<span id='363'>363</span>
+<span id='364'>364</span>
+<span id='365'>365</span>
+<span id='366'>366</span>
+<span id='367'>367</span>
+<span id='368'>368</span>
+<span id='369'>369</span>
+<span id='370'>370</span>
+<span id='371'>371</span>
+<span id='372'>372</span>
+<span id='373'>373</span>
+<span id='374'>374</span>
+<span id='375'>375</span>
+<span id='376'>376</span>
+<span id='377'>377</span>
+<span id='378'>378</span>
+<span id='379'>379</span>
+<span id='380'>380</span>
+<span id='381'>381</span>
+<span id='382'>382</span>
+<span id='383'>383</span>
+<span id='384'>384</span>
+<span id='385'>385</span>
+<span id='386'>386</span>
+<span id='387'>387</span>
+<span id='388'>388</span>
+<span id='389'>389</span>
+<span id='390'>390</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::<span class='ident'>RefCell</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 
-<span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>Data</span>, <span class='ident'>Strng</span>, <span class='ident'>Bool</span>, <span class='ident'>Vector</span>, <span class='ident'>Hash</span>, <span class='ident'>Func</span>};
+<span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>Data</span>, <span class='ident'>Strng</span>, <span class='ident'>Bool</span>, <span class='ident'>Integer</span>, <span class='ident'>Float</span>, <span class='ident'>Vector</span>, <span class='ident'>Hash</span>, <span class='ident'>Lambda</span>};
 
 <span class='doccomment'>/// `HashBuilder` is a helper type that constructs `Data` types in a HashMap</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Show</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>String</span>, <span class='ident'>Data</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span>,
+    <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
     <span class='kw'>pub</span> <span class='ident'>partials_path</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
     <span class='doccomment'>/// Create a new `HashBuilder` instance</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>HashBuilder</span> {
             <span class='ident'>data</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
@@ -420,13 +456,11 @@
 
     <span class='doccomment'>/// Add a `String` to the `HashBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::HashBuilder;</span>
     <span class='doccomment'>/// let data = HashBuilder::new()</span>
-    <span class='doccomment'>///     .insert_string(&quot;game&quot;, &quot;Hearthstone: Heroes of Warcraft&quot;)</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .insert_string(&quot;game&quot;, &quot;Hearthstone: Heroes of Warcraft&quot;);</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_string</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span>, <span class='ident'>V</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>value</span>: <span class='ident'>V</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Strng</span>(<span class='ident'>value</span>.<span class='ident'>into_string</span>()));
@@ -435,32 +469,56 @@
 
     <span class='doccomment'>/// Add a `Boolean` to the `HashBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::HashBuilder;</span>
     <span class='doccomment'>/// let data = HashBuilder::new()</span>
-    <span class='doccomment'>///     .insert_bool(&quot;playing&quot;, true)</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .insert_bool(&quot;playing&quot;, true);</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_bool</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>value</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Bool</span>(<span class='ident'>value</span>));
         <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>partials_path</span> }
     }
 
+    <span class='doccomment'>/// Add an `Integer` to the `HashBuilder`</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```ignore</span>
+    <span class='doccomment'>/// use rustache::HashBuilder;</span>
+    <span class='doccomment'>/// let data = HashBuilder::new()</span>
+    <span class='doccomment'>///     .insert_int(&quot;age&quot;, 10i)</span>
+    <span class='doccomment'>///     .insert_int(&quot;drinking age&quot;, -21i);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_int</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>value</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Integer</span>(<span class='ident'>value</span>));
+        <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>partials_path</span> }
+    }
+
+    <span class='doccomment'>/// Add a `Float` to the `HashBuilder`</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```ignore</span>
+    <span class='doccomment'>/// use rustache::HashBuilder;</span>
+    <span class='doccomment'>/// let data = HashBuilder::new()</span>
+    <span class='doccomment'>///     .insert_float(&quot;pi&quot;, 3.141596f64)</span>
+    <span class='doccomment'>///     .insert_float(&quot;phi&quot;, 1.61803398875f64);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_float</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>value</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Float</span>(<span class='ident'>value</span>));
+        <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>partials_path</span> }
+    }
+
     <span class='doccomment'>/// Add a `Vector` to the `HashBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::HashBuilder;</span>
     <span class='doccomment'>/// let data = HashBuilder::new()</span>
     <span class='doccomment'>///     .insert_vector(&quot;classes&quot;, |builder| {</span>
     <span class='doccomment'>///         builder</span>
     <span class='doccomment'>///             .push_string(&quot;Mage&quot;.to_string())</span>
     <span class='doccomment'>///             .push_string(&quot;Druid&quot;.to_string())</span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();   </span>
+    <span class='doccomment'>///     });  </span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_vector</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>f</span>(<span class='ident'>VecBuilder</span>::<span class='ident'>new</span>());
@@ -470,7 +528,7 @@
 
     <span class='doccomment'>/// Add a `Hash` to the `HashBuilder`</span>
     <span class='doccomment'>/// </span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::HashBuilder;</span>
     <span class='doccomment'>/// let data = HashBuilder::new()</span>
     <span class='doccomment'>///     .insert_hash(&quot;hero1&quot;, |builder| {</span>
@@ -482,10 +540,8 @@
     <span class='doccomment'>///         builder</span>
     <span class='doccomment'>///             .insert_string(&quot;first_name&quot;, &quot;Jaina&quot;)</span>
     <span class='doccomment'>///             .insert_string(&quot;last_name&quot;, &quot;Proudmoore&quot;)    </span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     });</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_hash</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>f</span>(<span class='ident'>HashBuilder</span>::<span class='ident'>new</span>());
@@ -493,34 +549,28 @@
         <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>partials_path</span> }
     }
 
-    <span class='doccomment'>/// Add a `Function` to the `HashBuilder`</span>
+    <span class='doccomment'>/// Add a `Lambda` that accepts a String and returns a String to the `HashBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::HashBuilder;</span>
-    <span class='doccomment'>/// let mut num = 0;</span>
     <span class='doccomment'>/// let data = HashBuilder::new()</span>
-    <span class='doccomment'>///     .insert_func(&quot;double&quot;, |_| {</span>
-    <span class='doccomment'>///         num *= 2u;</span>
-    <span class='doccomment'>///         num.to_string()                </span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .insert_lambda(&quot;lambda&quot;, |_| {</span>
+    <span class='doccomment'>///         &quot;world&quot;.to_string()               </span>
+    <span class='doccomment'>///     });</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_func</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>String</span><span class='op'>|</span>: <span class='lifetime'>&#39;a</span> <span class='op'>-&gt;</span> <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>insert_lambda</span><span class='op'>&lt;</span><span class='ident'>K</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>key</span>: <span class='ident'>K</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>String</span><span class='op'>|</span>: <span class='lifetime'>&#39;a</span> <span class='op'>-&gt;</span> <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>HashBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span>, <span class='ident'>partials_path</span> } <span class='op'>=</span> <span class='self'>self</span>;
-        <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Func</span>(<span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='ident'>f</span>)));
+        <span class='ident'>data</span>.<span class='ident'>insert</span>(<span class='ident'>key</span>.<span class='ident'>into_string</span>(), <span class='ident'>Lambda</span>(<span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='ident'>f</span>)));
         <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>partials_path</span> }
     }
 
     <span class='doccomment'>/// Set a path to partials data</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_partials_path</span>(<span class='self'>self</span>, <span class='ident'>path</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>HashBuilder</span> { <span class='ident'>data</span>: <span class='self'>self</span>.<span class='ident'>data</span>, <span class='ident'>partials_path</span>: <span class='ident'>path</span> }
     }
 
     <span class='doccomment'>/// Return the built `Data`</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Data</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Data</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>Hash</span>(<span class='self'>self</span>.<span class='ident'>data</span>)
     }
 }
@@ -532,7 +582,6 @@
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
     <span class='doccomment'>/// Create a new `VecBuilder` instance</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>VecBuilder</span> {
             <span class='ident'>data</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>()
@@ -541,49 +590,71 @@
 
     <span class='doccomment'>/// Add a `String` to the `VecBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::VecBuilder;</span>
     <span class='doccomment'>/// let data = VecBuilder::new()</span>
     <span class='doccomment'>///     .push_string(&quot;Mage&quot;)</span>
-    <span class='doccomment'>///     .push_string(&quot;Druid&quot;)</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .push_string(&quot;Druid&quot;);</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_string</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>StrAllocating</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>value</span>: <span class='ident'>T</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Strng</span>(<span class='ident'>value</span>.<span class='ident'>into_string</span>()));
         <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
     }
 
-    <span class='doccomment'>/// Add a `Boolean` to the `VecBuilder`</span>
+    <span class='doccomment'>/// Add a `Bool` to the `VecBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::VecBuilder;</span>
     <span class='doccomment'>/// let data = VecBuilder::new()</span>
     <span class='doccomment'>///     .push_bool(true)</span>
-    <span class='doccomment'>///     .push_bool(false)</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .push_bool(false);</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_bool</span>(<span class='self'>self</span>, <span class='ident'>value</span>: <span class='ident'>bool</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Bool</span>(<span class='ident'>value</span>));
         <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
     }
 
+    <span class='doccomment'>/// Add an `Integer` to the `VecBuilder`</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```ignore</span>
+    <span class='doccomment'>/// use rustache::VecBuilder;</span>
+    <span class='doccomment'>/// let data = VecBuilder::new()</span>
+    <span class='doccomment'>///     .push_int(10i)</span>
+    <span class='doccomment'>///     .push_int(-21i);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_int</span>(<span class='self'>self</span>, <span class='ident'>value</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Integer</span>(<span class='ident'>value</span>));
+        <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
+    }
+
+    <span class='doccomment'>/// Add a `Float` to the `VecBuilder`</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```ignore</span>
+    <span class='doccomment'>/// use rustache::VecBuilder;</span>
+    <span class='doccomment'>/// let data = VecBuilder::new()</span>
+    <span class='doccomment'>///     .push_float(10.356356f64)</span>
+    <span class='doccomment'>///     .push_float(-21.34956230456f64);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_float</span>(<span class='self'>self</span>, <span class='ident'>value</span>: <span class='ident'>f64</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
+        <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Float</span>(<span class='ident'>value</span>));
+        <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
+    }
+
     <span class='doccomment'>/// Add a `Vector` to the `VecBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::VecBuilder;</span>
     <span class='doccomment'>/// let data = VecBuilder::new()</span>
     <span class='doccomment'>///     .push_vector(|builder| {</span>
     <span class='doccomment'>///         builder</span>
     <span class='doccomment'>///             .push_string(&quot;Anduin Wrynn&quot;.to_string())</span>
     <span class='doccomment'>///             .push_string(&quot;Jaina Proudmoore&quot;.to_string())</span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     });</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_vector</span>(<span class='self'>self</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>f</span>(<span class='ident'>VecBuilder</span>::<span class='ident'>new</span>());
@@ -593,7 +664,7 @@
 
     <span class='doccomment'>/// Add a `Hash` to the `VecBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::VecBuilder;</span>
     <span class='doccomment'>/// let data = VecBuilder::new()</span>
     <span class='doccomment'>///     .push_hash(|builder| {</span>
@@ -605,10 +676,8 @@
     <span class='doccomment'>///         builder</span>
     <span class='doccomment'>///             .insert_string(&quot;first_name&quot;.to_string(), &quot;Malfurion&quot;.to_string())</span>
     <span class='doccomment'>///             .insert_string(&quot;last_name&quot;.to_string(), &quot;Stormrage&quot;.to_string())    </span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     });</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_hash</span>(<span class='self'>self</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='ident'>HashBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
         <span class='kw'>let</span> <span class='ident'>builder</span> <span class='op'>=</span> <span class='ident'>f</span>(<span class='ident'>HashBuilder</span>::<span class='ident'>new</span>());
@@ -616,28 +685,23 @@
         <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
     }
 
-    <span class='doccomment'>/// Add a `Function` to the `VecBuilder`</span>
+    <span class='doccomment'>/// Add a `Lambda` to the `VecBuilder`</span>
     <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```rust</span>
+    <span class='doccomment'>/// ```ignore</span>
     <span class='doccomment'>/// use rustache::VecBuilder;</span>
-    <span class='doccomment'>/// let mut num = 0;</span>
     <span class='doccomment'>/// let data = VecBuilder::new()</span>
-    <span class='doccomment'>///     .push_func(|double| {</span>
-    <span class='doccomment'>///         num *= 2u;</span>
-    <span class='doccomment'>///         num.to_string()</span>
-    <span class='doccomment'>///     })</span>
-    <span class='doccomment'>///     .build();</span>
+    <span class='doccomment'>///     .push_lambda(|lambda| {</span>
+    <span class='doccomment'>///         &quot;world&quot;.to_string()</span>
+    <span class='doccomment'>///     });</span>
     <span class='doccomment'>/// ```</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_func</span>(<span class='self'>self</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>String</span><span class='op'>|</span>: <span class='lifetime'>&#39;a</span> <span class='op'>-&gt;</span> <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span> <span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_lambda</span>(<span class='self'>self</span>, <span class='ident'>f</span>: <span class='op'>|</span><span class='ident'>String</span><span class='op'>|</span>: <span class='lifetime'>&#39;a</span> <span class='op'>-&gt;</span> <span class='ident'>String</span>) <span class='op'>-&gt;</span> <span class='ident'>VecBuilder</span> <span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>VecBuilder</span> { <span class='kw-2'>mut</span> <span class='ident'>data</span> } <span class='op'>=</span> <span class='self'>self</span>;
-        <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Func</span>(<span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='ident'>f</span>)));
+        <span class='ident'>data</span>.<span class='ident'>push</span>(<span class='ident'>Lambda</span>(<span class='ident'>RefCell</span>::<span class='ident'>new</span>(<span class='ident'>f</span>)));
         <span class='ident'>VecBuilder</span> { <span class='ident'>data</span>: <span class='ident'>data</span> }
     }
 
     <span class='doccomment'>/// Return the built `Data`</span>
-    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Data</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>build</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Data</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>Vector</span>(<span class='self'>self</span>.<span class='ident'>data</span>)
     }
 }
@@ -647,7 +711,7 @@
     <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 
     <span class='kw'>use</span> <span class='ident'>super</span>::{<span class='ident'>HashBuilder</span>, <span class='ident'>VecBuilder</span>};
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>super</span>::{<span class='ident'>Strng</span>, <span class='ident'>Bool</span>, <span class='ident'>Vector</span>, <span class='ident'>Hash</span>, <span class='ident'>Func</span>};
+    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='ident'>super</span>::{<span class='ident'>Strng</span>, <span class='ident'>Bool</span>, <span class='ident'>Integer</span>, <span class='ident'>Float</span>, <span class='ident'>Vector</span>, <span class='ident'>Hash</span>, <span class='ident'>Lambda</span>};
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_new_builders</span>() {
@@ -670,6 +734,8 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>hash1</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
         <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;first_name&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Strng</span>(<span class='string'>&quot;Anduin&quot;</span>.<span class='ident'>to_string</span>()));
         <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;last_name&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Strng</span>(<span class='string'>&quot;Wrynn&quot;</span>.<span class='ident'>to_string</span>()));
+        <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;age&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Integer</span>(<span class='number'>21i</span>));
+        <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;weight&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Float</span>(<span class='number'>120.16f64</span>));
         <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;class&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Strng</span>(<span class='string'>&quot;Priest&quot;</span>.<span class='ident'>to_string</span>()));
         <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;died&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Bool</span>(<span class='boolval'>false</span>));
         <span class='ident'>hash1</span>.<span class='ident'>insert</span>(<span class='string'>&quot;class_cards&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>Vector</span>(<span class='macro'>vec</span><span class='macro'>!</span>(
@@ -679,6 +745,8 @@
         <span class='kw'>let</span> <span class='ident'>hash2</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>().<span class='ident'>set_partials_path</span>(<span class='string'>&quot;/hearthstone&quot;</span>)
                         .<span class='ident'>insert_string</span>(<span class='string'>&quot;first_name&quot;</span>, <span class='string'>&quot;Anduin&quot;</span>)
                         .<span class='ident'>insert_string</span>(<span class='string'>&quot;last_name&quot;</span>, <span class='string'>&quot;Wrynn&quot;</span>)
+                        .<span class='ident'>insert_int</span>(<span class='string'>&quot;age&quot;</span>, <span class='number'>21i</span>)
+                        .<span class='ident'>insert_float</span>(<span class='string'>&quot;weight&quot;</span>, <span class='number'>120.16f64</span>)
                         .<span class='ident'>insert_string</span>(<span class='string'>&quot;class&quot;</span>, <span class='string'>&quot;Priest&quot;</span>)
                         .<span class='ident'>insert_bool</span>(<span class='string'>&quot;died&quot;</span>, <span class='boolval'>false</span>)
                         .<span class='ident'>insert_vector</span>(<span class='string'>&quot;class_cards&quot;</span>, <span class='op'>|</span><span class='ident'>builder</span><span class='op'>|</span> {
@@ -696,13 +764,13 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_hash_func_builder</span>() {
+    <span class='kw'>fn</span> <span class='ident'>test_hash_lambda_builder</span>() {
         <span class='comment'>// Since we can&#39;t directly compare closures, just make</span>
-        <span class='comment'>// sure we&#39;re threading through the builder.</span>
-        
+        <span class='comment'>// sure we&#39;re threading through the builder</span>
+
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='number'>10u</span>;
         <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>HashBuilder</span>::<span class='ident'>new</span>()
-            .<span class='ident'>insert_func</span>(<span class='string'>&quot;double&quot;</span>, <span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> {
+            .<span class='ident'>insert_lambda</span>(<span class='string'>&quot;double&quot;</span>, <span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> {
                 <span class='ident'>num</span> <span class='op'>*=</span> <span class='number'>2u</span>;
                 <span class='ident'>x</span> <span class='op'>+</span> <span class='ident'>num</span>.<span class='ident'>to_string</span>()
             })
@@ -711,7 +779,7 @@
         <span class='kw'>match</span> <span class='ident'>data</span> {
             <span class='ident'>Hash</span>(<span class='ident'>m</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>m</span>.<span class='ident'>find_equiv</span>(<span class='kw-2'>&amp;</span>(<span class='string'>&quot;double&quot;</span>)).<span class='ident'>unwrap</span>() {
-                    <span class='ident'>Func</span>(<span class='kw-2'>ref</span> <span class='ident'>f</span>) <span class='op'>=&gt;</span> {
+                    <span class='ident'>Lambda</span>(<span class='kw-2'>ref</span> <span class='ident'>f</span>) <span class='op'>=&gt;</span> {
                         <span class='kw'>let</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='op'>*</span><span class='ident'>f</span>.<span class='ident'>borrow_mut</span>();
                         <span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>*</span><span class='ident'>f</span>)(<span class='string'>&quot;double: &quot;</span>.<span class='ident'>to_string</span>()), <span class='string'>&quot;double: 20&quot;</span>.<span class='ident'>to_string</span>());
                         <span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>*</span><span class='ident'>f</span>)(<span class='string'>&quot;double: &quot;</span>.<span class='ident'>to_string</span>()), <span class='string'>&quot;double: 40&quot;</span>.<span class='ident'>to_string</span>());
@@ -725,13 +793,13 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
-    <span class='kw'>fn</span> <span class='ident'>test_vec_func_builder</span>() {
+    <span class='kw'>fn</span> <span class='ident'>test_vec_lambda_builder</span>() {
         <span class='comment'>// Since we can&#39;t directly compare closures, just make</span>
-        <span class='comment'>// sure we&#39;re threading through the builder.</span>
+        <span class='comment'>// sure we&#39;re threading through the builder</span>
 
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>num</span> <span class='op'>=</span> <span class='number'>10u</span>;
         <span class='kw'>let</span> <span class='ident'>data</span> <span class='op'>=</span> <span class='ident'>VecBuilder</span>::<span class='ident'>new</span>()
-            .<span class='ident'>push_func</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> {
+            .<span class='ident'>push_lambda</span>(<span class='op'>|</span><span class='ident'>x</span><span class='op'>|</span> {
                 <span class='ident'>num</span> <span class='op'>*=</span> <span class='number'>2u</span>;
                 <span class='ident'>x</span> <span class='op'>+</span> <span class='ident'>num</span>.<span class='ident'>to_string</span>()
             })
@@ -740,7 +808,7 @@
         <span class='kw'>match</span> <span class='ident'>data</span> {
             <span class='ident'>Vector</span>(<span class='ident'>m</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>match</span> <span class='ident'>m</span>.<span class='ident'>as_slice</span>() {
-                    [<span class='ident'>Func</span>(<span class='kw-2'>ref</span> <span class='ident'>f</span>)] <span class='op'>=&gt;</span> {
+                    [<span class='ident'>Lambda</span>(<span class='kw-2'>ref</span> <span class='ident'>f</span>)] <span class='op'>=&gt;</span> {
                         <span class='kw'>let</span> <span class='ident'>f</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='op'>*</span><span class='ident'>f</span>.<span class='ident'>borrow_mut</span>();
                         <span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>*</span><span class='ident'>f</span>)(<span class='string'>&quot;double: &quot;</span>.<span class='ident'>to_string</span>()), <span class='string'>&quot;double: 20&quot;</span>.<span class='ident'>to_string</span>());
                         <span class='macro'>assert_eq</span><span class='macro'>!</span>((<span class='op'>*</span><span class='ident'>f</span>)(<span class='string'>&quot;double: &quot;</span>.<span class='ident'>to_string</span>()), <span class='string'>&quot;double: 40&quot;</span>.<span class='ident'>to_string</span>());
