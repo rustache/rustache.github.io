@@ -7,6 +7,7 @@
     <meta name="description" content="API documentation for the Rust `rustache` crate.">
     <meta name="keywords" content="rustache, mustache, rust, rustlang, rust-lang">
     <title>rustache</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
@@ -29,10 +30,10 @@
         <section class="example">
           <b>extern</b> crate rustache; <br> <br>
 
-          rustache.render(template, &data); <br> <br>
+          rustache::render_text(template, data); <br> <br>
 
           // or <br> 
-          rustache.render("path/to/template", &data); <br> <br>          
+          rustache::render_file("path/to/template.html", data); <br> <br>          
         </section>
       </article>
 
