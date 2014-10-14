@@ -22,8 +22,10 @@ a {
   text-decoration: none;
 }
 .content {
-  width: 310px;
-  margin: 0 auto;
+  width: 400px;
+  margin: 0 50%;
+  left: -140px;
+  position: relative;
 }
 .jumbo {
   padding: 20px 0;
